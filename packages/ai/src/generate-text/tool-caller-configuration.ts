@@ -246,6 +246,7 @@ export async function createToolCallerApprovalRequestOutput<
   const toolCall = {
     type: 'tool-call' as const,
     ...request.toolCall,
+    callerToolCallId: request.callerToolCallId,
     dynamic: false as const,
   } as TypedToolCall<TOOLS>;
   const signature = await maybeSignApproval({
@@ -259,6 +260,7 @@ export async function createToolCallerApprovalRequestOutput<
     type: 'tool-approval-request',
     approvalId: request.approvalId,
     toolCall,
+    callerToolCallId: request.callerToolCallId,
     ...(signature != null ? { signature } : {}),
   };
 }
